@@ -153,6 +153,52 @@ std::vector<std::vector<float>> Hermite(const std::vector<std::vector<float>>& p
     return result;
 }
 
+
+/*
+std::vector<std::vector<float>> Hermite2(const std::vector<std::vector<float>>& points,
+                                         const std::vector<std::vector<float>>& derivatives,
+                                         int nbp) {
+    // Fonction pour interpoler une courbe de Hermite à partir des points et de leurs dérivées vectorielles.
+
+    // Vérification des données
+    if (points.size() != derivatives.size() || points.empty() || nbp < 2) {
+        throw std::invalid_argument("Invalid input data");
+    }
+
+    std::vector<std::vector<float>> result; // Résultat des points interpolés.
+    int n = points.size(); // Nombre de points dans la liste.
+
+    // Parcourir chaque segment entre deux points successifs.
+    for (int i = 0; i < n - 1; ++i) {
+        float x0 = points[i][0], y0 = points[i][1];          // Coordonnées du point de départ.
+        float x1 = points[i + 1][0], y1 = points[i + 1][1];  // Coordonnées du point d'arrivée.
+        float dx0 = derivatives[i][0], dy0 = derivatives[i][1]; // Dérivées vectorielles au point de départ.
+        float dx1 = derivatives[i + 1][0], dy1 = derivatives[i + 1][1]; // Dérivées vectorielles au point d'arrivée.
+
+        float dx = x1 - x0; // Différence en x (utilisée pour la normalisation).
+        float dy = y1 - y0; // Différence en y (pas forcément nécessaire mais peut aider pour le contexte).
+
+        // Générer `nbp` points interpolés pour ce segment.
+        for (int j = 0; j < nbp; ++j) {
+            float t = static_cast<float>(j) / (nbp - 1); // Paramètre normalisé entre [0, 1].
+                        // Polynômes de base de Hermite :
+            float h1 = 2 * t * t * t - 3 * t * t + 1;  // Contribue à f(x0).
+            float h2 = -2 * t * t * t + 3 * t * t;     // Contribue à f(x1).
+            float h3 = t * t * t - 2 * t * t + t;      // Contribue à f'(x0).
+            float h4 = t * t * t - t * t;              // Contribue à f'(x1).
+
+            // Calcul de la position interpolée dans le plan (x, y) :
+            float x = h1 * x0 + h2 * x1 + h3 * dx0 * dx + h4 * dx1 * dx;
+            float y = h1 * y0 + h2 * y1 + h3 * dy0 * dx + h4 * dy1 * dx;
+
+            result.push_back({ x, y }); // Ajoute le point interpolé au résultat.
+        }
+    }
+
+    return result; // Retourne tous les points calculés pour former la courbe.
+}
+*/
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
